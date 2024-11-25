@@ -1,0 +1,18 @@
+   name: Ticket Alert
+   on:
+     schedule:
+       - cron: '*/5 * * * *' # 5분마다 체크
+   
+   jobs:
+     check-tickets:
+       runs-on: ubuntu-latest
+       timeout-minutes: 5
+       steps:
+         - name: Check Tickets
+           uses: mooyoul/melon-ticket-actions@v1.1.0
+           with:
+             product-id: 210649       # 예: 204755
+             schedule-id: 100001       # 예: 100001
+             seat-id: 1_0          # 예: 1_0
+             slack-incoming-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+             message: '티켓이 열렸습니다!' # 원하는 메시지로 수정
